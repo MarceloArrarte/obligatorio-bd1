@@ -1,0 +1,190 @@
+DROP DATABASE IF EXISTS obligatorio_bd1;
+CREATE DATABASE obligatorio_bd1;
+USE obligatorio_bd1;
+
+CREATE TABLE seasons (
+	year INT PRIMARY KEY,
+	url VARCHAR(200) NOT NULL
+);
+
+CREATE TABLE circuits (
+	circuitId INT PRIMARY KEY,
+	circuitRef VARCHAR(30) NOT NULL,
+	name VARCHAR(100) NOT NULL,
+	location VARCHAR(30) NOT NULL,
+	country VARCHAR(30) NOT NULL,
+	lat DOUBLE NOT NULL,
+	lng DOUBLE NOT NULL,
+	alt INT,
+	url VARCHAR(200)
+);
+
+CREATE TABLE drivers (
+	driverId INT PRIMARY KEY,
+	driverRef VARCHAR(50) NOT NULL,
+	number INT,
+	code CHAR(3),
+	forename VARCHAR(50) NOT NULL,
+	surname VARCHAR(50) NOT NULL,
+	dob DATE NOT NULL,
+	nationality VARCHAR(50) NOT NULL,
+	url VARCHAR(200) NOT NULL
+);
+
+CREATE TABLE constructors (
+	constructorId INT PRIMARY KEY,
+	constructorRef VARCHAR(30) NOT NULL,
+	name VARCHAR(100) NOT NULL,
+	nationality VARCHAR(30) NOT NULL,
+	url VARCHAR(200) NOT NULL
+);
+
+CREATE TABLE status (
+	statusId INT PRIMARY KEY,
+	status VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE races (
+	raceId INT PRIMARY KEY,
+	year INT NOT NULL,
+	round INT UNSIGNED NOT NULL,
+	circuitId INT NOT NULL,
+	name VARCHAR(50) NOT NULL,
+	date DATE NOT NULL,
+	time TIME,
+	url VARCHAR(200) NOT NULL,
+	fp1_date DATE,
+	fp1_time TIME,
+	fp2_date DATE,
+	fp2_time TIME,
+	fp3_date DATE,
+	fp3_time TIME,
+	quali_date DATE,
+	quali_time TIME,
+	sprint_date DATE,
+	sprint_time TIME,
+	CONSTRAINT FK_race_season FOREIGN KEY (year) REFERENCES seasons (year),
+	CONSTRAINT FK_race_circuit FOREIGN KEY (circuitId) REFERENCES circuits (circuitId)
+);
+
+CREATE TABLE pit_stops (
+	raceId INT,
+	driverId INT,
+	stop INT,
+	lap INT NOT NULL,
+	time TIME NOT NULL,
+	duration TIME NOT NULL,
+	milliseconds INT NOT NULL,
+	CONSTRAINT PK_pitStops PRIMARY KEY (raceId, driverId, stop),
+	CONSTRAINT FK_pitStop_race FOREIGN KEY (raceId) REFERENCES races (raceId),
+	CONSTRAINT FK_pitStop_driver FOREIGN KEY (driverId) REFERENCES drivers (driverId)
+);
+
+CREATE TABLE lap_times (
+	raceId INT,
+	driverId INT,
+	lap INT,
+	position INT NOT NULL,
+	time TIME,
+	milliseconds INT NOT NULL,
+	CONSTRAINT PK_lapTimes PRIMARY KEY (raceId, driverId, lap),
+	CONSTRAINT FK_lapTime_race FOREIGN KEY (raceId) REFERENCES races (raceId),
+	CONSTRAINT FK_lapTime_driver FOREIGN KEY (driverId) REFERENCES drivers (driverId)
+);
+
+CREATE TABLE driver_standing (
+	driverStandingsId INT PRIMARY KEY,
+	raceId INT NOT NULL,
+	driverId INT NOT NULL,
+	points INT NOT NULL,
+	position INT NOT NULL,
+	positionText VARCHAR(2) NOT NULL,
+	wins INT NOT NULL,
+	CONSTRAINT FK_driverStanding_race FOREIGN KEY (raceId) REFERENCES races (raceId),
+	CONSTRAINT FK_driverStanding_driver FOREIGN KEY (driverId) REFERENCES drivers (driverId)
+);
+
+CREATE TABLE results (
+	resultId INT PRIMARY KEY,
+	raceId INT NOT NULL,
+	driverId INT NOT NULL,
+	constructorId INT NOT NULL,
+	number INT,
+	grid INT NOT NULL,
+	position INT NOT NULL,
+	positionText VARCHAR(2) NOT NULL,
+	positionOrder INT,
+	points INT NOT NULL,
+	laps INT NOT NULL,
+	time TIME,
+	milliseconds INT,
+	fastestLap INT,
+	`rank` INT,
+	fastestLapTime TIME,
+	fastestLapSpeed DOUBLE,
+	statusId INT NOT NULL,
+	CONSTRAINT FK_result_race FOREIGN KEY (raceId) REFERENCES races (raceId),
+	CONSTRAINT FK_result_driver FOREIGN KEY (driverId) REFERENCES drivers (driverId),
+	CONSTRAINT FK_result_constructor FOREIGN KEY (constructorId) REFERENCES constructors (constructorId),
+	CONSTRAINT FK_result_status FOREIGN KEY (statusId) REFERENCES status (statusId)
+);
+
+CREATE TABLE sprint_results (
+	resultId INT PRIMARY KEY,
+	raceId INT NOT NULL,
+	driverId INT NOT NULL,
+	constructorId INT NOT NULL,
+	number INT NOT NULL,
+	grid INT NOT NULL,
+	position INT NOT NULL,
+	positionText VARCHAR(2) NOT NULL,
+	positionOrder INT,
+	points INT NOT NULL,
+	laps INT NOT NULL,
+	time TIME,
+	milliseconds INT,
+	fastestLap INT,
+	fastestLapTime TIME,
+	statusId INT NOT NULL,
+	CONSTRAINT FK_sprintResult_race FOREIGN KEY (raceId) REFERENCES races (raceId),
+	CONSTRAINT FK_sprintResult_driver FOREIGN KEY (driverId) REFERENCES drivers (driverId),
+	CONSTRAINT FK_sprintResult_constructor FOREIGN KEY (constructorId) REFERENCES constructors (constructorId),
+	CONSTRAINT FK_sprintResult_status FOREIGN KEY (statusId) REFERENCES status (statusId)
+);
+
+CREATE TABLE constructor_results (
+	constructorResultsId INT PRIMARY KEY,
+	raceId INT NOT NULL,
+	constructorId INT NOT NULL,
+	points INT UNSIGNED NOT NULL,
+	status CHAR(1),
+	CONSTRAINT FK_constructorResult_race FOREIGN KEY (raceId) REFERENCES races (raceId),
+	CONSTRAINT FK_constructorResult_constructor FOREIGN KEY (constructorId) REFERENCES constructors (constructorId)
+);
+
+CREATE TABLE constructor_standings (
+	constructorStandingsId INT PRIMARY KEY,
+	raceId INT NOT NULL,
+	constructorId INT NOT NULL,
+	points INT NOT NULL,
+	position INT NOT NULL,
+	positionText VARCHAR(2) NOT NULL,
+	wins INT NOT NULL,
+	CONSTRAINT FK_constructorStanding_race FOREIGN KEY (raceId) REFERENCES races (raceId),
+	CONSTRAINT FK_constructorStanding_constructor FOREIGN KEY (constructorId) REFERENCES constructors (constructorId)
+);
+
+CREATE TABLE qualifying (
+	qualifyingId INT PRIMARY KEY,
+	raceId INT NOT NULL,
+	driverId INT NOT NULL,
+	constructorId INT NOT NULL,
+	number INT NOT NULL,
+	position INT NOT NULL,
+	q1 TIME,
+	q2 TIME,
+	q3 TIME,
+	CONSTRAINT FK_qualifying_race FOREIGN KEY (raceId) REFERENCES races (raceId),
+	CONSTRAINT FK_qualifying_driver FOREIGN KEY (driverId) REFERENCES drivers (driverId),
+	CONSTRAINT FK_qualifying_constructor FOREIGN KEY (constructorId) REFERENCES constructors (constructorId)
+);
