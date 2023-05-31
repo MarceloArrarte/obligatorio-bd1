@@ -1,0 +1,20 @@
+{
+  "name": "obligatorio-bd1",
+  "version": "1.0.0",
+  "main": "build/app.js",
+  "scripts": {
+    "build": "npx tsc --outDir build",
+    "start": "npm run build && node build/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^20.2.5",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "mysql2": "^3.3.1"
+  }
+}
