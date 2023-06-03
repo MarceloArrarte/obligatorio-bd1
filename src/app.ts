@@ -1,30 +1,21 @@
-import fs from 'fs';
-import SucursalRepository from './repositories/sucursal';
-
-const leerArchivo = (nombreArchivo: string) => {
-  return fs.readFileSync(nombreArchivo).toString().split('\n');
-}
+import { FileParser } from "./file_parser";
+import { dataFileToRepo } from "./data_file_to_repo";
 
 const main = async () => {
-  const filas = leerArchivo('./files/sucursales.csv');
+  const fileParser = new FileParser();
 
-  for (const fila of filas) {
-    const campos = fila.split(',');
-    if (campos.length < 4) {
-      continue;
-    }
+  for (const fileName in dataFileToRepo) {
+    const repo = dataFileToRepo[fileName];
+    const entities = fileParser.readDataFile(fileName);
 
-    const [id_sucursal, nombre, direccion, id_depto] = campos;
+    console.log(`${fileName} leído, ${entities.length} entidades encontradas a insertar con ${repo.name}`);
 
-    await SucursalRepository.insert({
-      id_sucursal: parseInt(id_sucursal),
-      nombre,
-      direccion,
-      id_depto: parseInt(id_depto)
-    });
-
-    console.log(`Sucursal ${nombre} insertada`);
+    // for (const entity of entities) {
+    //   repo.insert(entity);
+    //   console.log(JSON.stringify(entity));
+    // }
   }
+
 };
 
-main().then(() => console.log('Terminado'));
+main();
