@@ -16,7 +16,8 @@ export default function BaseRepository<T extends {[property: string]: any}>(tabl
       }
 
       const query = `INSERT INTO ${table} (${cols.join(', ')}) VALUES (${params.map(() => '?').join(', ')})`;
-
+      //console.log(params.flat());
+      console.log(query);
       await DB.runQuery<T>(query, ...params);
     }
   }

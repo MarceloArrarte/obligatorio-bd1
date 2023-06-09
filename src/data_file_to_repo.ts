@@ -11,20 +11,22 @@ import ResultsRepository from "./repositories/results"
 import SeasonsRepository from "./repositories/seasons"
 import StatusRepository from "./repositories/status"
 import BaseRepository from "./repositories/base"
+import  ConstructorStandingsRepository from "./repositories/constructor_standings"
 
 export const dataFileToRepo: {
   [key: string]: ReturnType<typeof BaseRepository>
 } = {
   circuits: CircuitsRepository,
-  constructor_results: ConstructorResultsRepository,
+  seasons: SeasonsRepository,
+  races: RacesRepository,
+  status: StatusRepository,
   constructors: ConstructorsRepository,
+  constructor_results: ConstructorResultsRepository,
+  constructor_standings: ConstructorStandingsRepository,
   driver_standings: DriverStandingsRepository,
   drivers: DriverRepository,
   lap_times: LapTimesRepository,
   pit_stops: PitStopsRepository,
   qualifying: QualifyingsRepository,
-  races: RacesRepository,
-  results: ResultsRepository,
-  seasons: SeasonsRepository,
-  status: StatusRepository
+  results: ResultsRepository
 }
