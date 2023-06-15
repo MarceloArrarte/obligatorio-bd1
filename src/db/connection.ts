@@ -3,7 +3,7 @@ import mysql2, { FieldPacket, RowDataPacket } from 'mysql2/promise';
 const createConnection = () => mysql2.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'toor',
+  password: 'nacho',
   database: 'obligatorio_bd1',
   port: 3306
 });
