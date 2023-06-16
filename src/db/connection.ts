@@ -8,7 +8,7 @@ const createConnection = () => mysql2.createConnection({
   port: 3306
 });
 
-const runQuery = async <T>(query: string, ...values: any[]) => {
+const runQuery = async <T>(query: string, values: any[] = []) => {
   let conn;
   try {
     conn = await createConnection();
