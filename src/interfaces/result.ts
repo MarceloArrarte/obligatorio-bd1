@@ -5,7 +5,7 @@ export interface Result {
   constructorId: number;
   number?: number;
   grid: number;
-  position: number;
+  position?: number;
   positionText: string;
   positionOrder: number;
   points: number;
