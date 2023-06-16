@@ -1,5 +1,5 @@
 export interface Qualifying {
-  qualifyingId: number;
+  qualifyId: number;
   raceId: number;
   driverId: number;
   constructorId: number;

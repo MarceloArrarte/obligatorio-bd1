@@ -11,22 +11,87 @@ import ResultsRepository from "./repositories/results"
 import SeasonsRepository from "./repositories/seasons"
 import StatusRepository from "./repositories/status"
 import BaseRepository from "./repositories/base"
-import  ConstructorStandingsRepository from "./repositories/constructor_standings"
+import ConstructorStandingsRepository from "./repositories/constructor_standings";
+import { parseStringAsDate, parseStringAsTime } from "./data-transforms";
+
+type DataFileMapping = {
+  repo: ReturnType<typeof BaseRepository>,
+  transforms: {
+    [key: string]: (value: string) => any
+  }
+}
 
 export const dataFileToRepo: {
-  [key: string]: ReturnType<typeof BaseRepository>
+  [key: string]: DataFileMapping
 } = {
-  circuits: CircuitsRepository,
-  seasons: SeasonsRepository,
-  races: RacesRepository,
-  status: StatusRepository,
-  constructors: ConstructorsRepository,
-  constructor_results: ConstructorResultsRepository,
-  constructor_standings: ConstructorStandingsRepository,
-  driver_standings: DriverStandingsRepository,
-  drivers: DriverRepository,
-  lap_times: LapTimesRepository,
-  pit_stops: PitStopsRepository,
-  qualifying: QualifyingsRepository,
-  results: ResultsRepository
+  circuits: {
+    repo: CircuitsRepository,
+    transforms: {}
+  },
+  constructors: {
+    repo: ConstructorsRepository,
+    transforms: {}
+  },
+  constructor_results: {
+    repo: ConstructorResultsRepository,
+    transforms: {}
+  },
+  constructor_standings: {
+    repo: ConstructorStandingsRepository,
+    transforms: {}
+  },
+  driver_standings: {
+    repo: DriverStandingsRepository,
+    transforms: {}
+  },
+  drivers: {
+    repo: DriverRepository,
+    transforms: {
+      dob: parseStringAsDate
+    }
+  },
+  lap_times: {
+    repo: LapTimesRepository,
+    transforms: {
+      time: parseStringAsTime
+    }
+  },
+  pit_stops: {
+    repo: PitStopsRepository,
+    transforms: {
+      time: parseStringAsTime,
+      duration: parseStringAsTime
+    }
+  },
+  qualifying: {
+    repo: QualifyingsRepository,
+    transforms: {
+      q1: parseStringAsTime,
+      q2: parseStringAsTime,
+      q3: parseStringAsTime
+    }
+  },
+  races: {
+    repo: CircuitsRepository,
+    transforms: {
+      date: parseStringAsDate,
+      time: parseStringAsTime
+    }
+  },
+  results: {
+    repo: ResultsRepository,
+    transforms: {
+      time: parseStringAsTime,
+      fastest_lap_time: parseStringAsTime,
+      fastest_lap_speed: parseFloat
+    }
+  },
+  seasons: {
+    repo: SeasonsRepository,
+    transforms: {}
+  },
+  status: {
+    repo: StatusRepository,
+    transforms: {}
+  }
 }

@@ -11,7 +11,7 @@ export default function BaseRepository<T extends {[property: string]: any}>(tabl
       const params: any[] = [];
 
       for (const [col, value] of Object.entries(object)) {
-        cols.push(col);
+        cols.push(`\`${col}\``);
         params.push(value);
       }
 

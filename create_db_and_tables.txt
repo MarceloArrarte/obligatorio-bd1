@@ -92,7 +92,7 @@ CREATE TABLE lap_times (
 	CONSTRAINT FK_lapTime_driver FOREIGN KEY (driverId) REFERENCES drivers (driverId)
 );
 
-CREATE TABLE driver_standing (
+CREATE TABLE driver_standings (
 	driverStandingsId INT PRIMARY KEY,
 	raceId INT NOT NULL,
 	driverId INT NOT NULL,
@@ -175,7 +175,7 @@ CREATE TABLE constructor_standings (
 );
 
 CREATE TABLE qualifying (
-	qualifyingId INT PRIMARY KEY,
+	qualifyId INT PRIMARY KEY,
 	raceId INT NOT NULL,
 	driverId INT NOT NULL,
 	constructorId INT NOT NULL,
