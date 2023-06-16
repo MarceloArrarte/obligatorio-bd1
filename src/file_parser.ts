@@ -1,14 +1,14 @@
 import fs from 'fs';
 
 export class FileParser {
-  readDataFile(fileName: string): Object[] {
+  readDataFile<T extends {}>(fileName: string): T[] {
     const fileRows = fs.readFileSync(`./files/${fileName}.csv`)
       .toString()
-      .split('\n')
+      .split(/(\r\n)|\n/)
       .filter((row) => row.length > 0);
   
     const headers = fileRows[0].split(',');
-    const entities = [];
+    const entities: T[] = [];
   
     for (let i = 1; i < fileRows.length; i++) {
       const fields = fileRows[i].split(',');
@@ -16,14 +16,18 @@ export class FileParser {
   
       for (let j = 0; j < headers.length; j++) {
         const header = headers[j];
-        const value = fields[j];
-  
+        let value = fields[j];
+
+        if (value.startsWith('"') && value.endsWith('"')) {
+          value = value.slice(1, -1);
+        }
+        
         if (value !== '\\N') {
           entity[header] = value;
         }
       }
   
-      entities.push(entity);
+      entities.push(entity as T);
     }
   
     return entities;

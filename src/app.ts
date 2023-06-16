@@ -1,14 +1,12 @@
 import { FileParser } from "./file_parser";
 import { dataFileToRepo } from "./data_file_to_repo";
 import { setTimeout } from "timers/promises";
-import BaseRepository  from "./repositories/base";
-import { Status } from "./interfaces/status";
 
 const main = async () => {
   const fileParser = new FileParser();
 
   for (const fileName in dataFileToRepo) {
-    const repo = dataFileToRepo[fileName];
+    const repo = dataFileToRepo[fileName].repo;
     const entities = fileParser.readDataFile(fileName);
     console.log(`filename:${fileName} - repo:${repo} `);
     console.log(`${fileName} leído, ${entities.length} entidades encontradas a insertar con ${repo.name}`);
