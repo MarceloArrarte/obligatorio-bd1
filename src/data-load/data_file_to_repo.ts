@@ -1,19 +1,19 @@
-import CircuitsRepository from "./repositories/circuits"
-import ConstructorResultsRepository from "./repositories/constructor_results"
-import ConstructorsRepository from "./repositories/constructors"
-import DriverStandingsRepository from "./repositories/driver_standings"
-import DriverRepository from "./repositories/drivers"
-import LapTimesRepository from "./repositories/lap_times"
-import PitStopsRepository from "./repositories/pit_stops"
-import QualifyingRepository from "./repositories/qualifying"
-import RacesRepository from "./repositories/races"
-import ResultsRepository from "./repositories/results"
-import SeasonsRepository from "./repositories/seasons"
-import StatusRepository from "./repositories/status"
-import BaseRepository from "./repositories/base"
-import ConstructorStandingsRepository from "./repositories/constructor_standings";
+import CircuitsRepository from "../repositories/circuits"
+import ConstructorResultsRepository from "../repositories/constructor_results"
+import ConstructorsRepository from "../repositories/constructors"
+import DriverStandingsRepository from "../repositories/driver_standings"
+import DriverRepository from "../repositories/drivers"
+import LapTimesRepository from "../repositories/lap_times"
+import PitStopsRepository from "../repositories/pit_stops"
+import QualifyingRepository from "../repositories/qualifying"
+import RacesRepository from "../repositories/races"
+import ResultsRepository from "../repositories/results"
+import SeasonsRepository from "../repositories/seasons"
+import StatusRepository from "../repositories/status"
+import BaseRepository from "../repositories/base"
+import ConstructorStandingsRepository from "../repositories/constructor_standings";
 import { parseStringAsDate, parseStringAsTime } from "./data_transforms";
-import SprintResultsRepository from "./repositories/sprint_results"
+import SprintResultsRepository from "../repositories/sprint_results"
 
 type DataFileMapping = {
   fileName: string,

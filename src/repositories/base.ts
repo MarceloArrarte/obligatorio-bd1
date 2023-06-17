@@ -1,8 +1,9 @@
 import DB from "../db/connection";
+import { CountResult } from "../db/types";
 
 export default function BaseRepository<T extends {[property: string]: any}>(table: string) {
   class BaseRepository {
-    private static MAX_QUERY_PARAMETERS = 1000;
+    private static MAX_BATCH_QUERY_PARAMETERS = 50000;
 
     static async getAll(): Promise<T[]> {
       return await DB.runQuery<T>(`SELECT * FROM ${table}`);
@@ -34,7 +35,7 @@ export default function BaseRepository<T extends {[property: string]: any}>(tabl
       let batchStart = 0;
       while (batchStart < objects.length) {
         const batchSize = Math.min(
-          Math.floor(BaseRepository.MAX_QUERY_PARAMETERS / cols.length),
+          Math.floor(BaseRepository.MAX_BATCH_QUERY_PARAMETERS / cols.length),
           objects.length - batchStart
         );
 
@@ -59,6 +60,13 @@ export default function BaseRepository<T extends {[property: string]: any}>(tabl
         batchStart += batchSize;
         console.log(`Se insertaron ${batchSize} registros en ${table}. ${Math.floor((batchStart / objects.length) * 100)}% completado (${batchStart} de ${objects.length}).`);
       }
+    }
+
+    static async hasData(): Promise<boolean> {
+      const query = `SELECT COUNT(*) FROM ${table}`;
+      const result = await DB.runQuery<CountResult>(query);
+
+      return result[0].count > 0;
     }
   }
 
