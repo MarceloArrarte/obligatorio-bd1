@@ -29,6 +29,7 @@ const promptCheckStoredData = async () => {
   await inquirer.prompt([
     {
       type: 'confirm',
+      name: 'confirm',
       message: 'Copie los archivos del conjunto de datos en la carpeta "files/" y presione enter para continuar. Este proceso puede demorar varios minutos.',
     }
   ]);
@@ -38,7 +39,7 @@ const promptCheckStoredData = async () => {
   await loadDataFiles();
   showLogs();
   console.log('Importación de datos finalizada.');
-  enterToContinue();
+  await enterToContinue();
 };
 
 
@@ -53,21 +54,21 @@ const promptMainMenu = async () => {
       choices: [
         {
           name: '1. Realizar consulta.',
-          value: '1'
+          value: 1
         },
         {
           name: '2. Salir.',
-          value: '2'
+          value: 2
         }
       ]
     }
   ]);
 
   switch (opcion.selectedOption) {
-    case '1':
+    case 1:
       await promptQueryMenu();
       break;
-    case '2':
+    case 2:
       console.log('Saliendo del sistema...');
       return;
   }

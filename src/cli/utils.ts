@@ -6,12 +6,15 @@ const writeSeparator = () => {
   console.log(cliLineSeparator);
 }
 
+const logger = console.log;
+const noop = () => {};
+
 const hideLogs = () => {
-  console.log = () => {};
+  console.log = noop;
 }
 
 const showLogs = () => {
-  console.log = console.log;
+  console.log = logger;
 }
 
 const enterToContinue = async () => {

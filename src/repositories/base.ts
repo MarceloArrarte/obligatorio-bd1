@@ -66,7 +66,7 @@ export default function BaseRepository<T extends {[property: string]: any}>(tabl
       const query = `SELECT COUNT(*) FROM ${table}`;
       const result = await DB.runQuery<CountResult>(query);
 
-      return result[0].count > 0;
+      return result[0]['COUNT(*)'] > 0;
     }
   }
 

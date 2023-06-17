@@ -11,13 +11,13 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@types/inquirer": "^9.0.3",
     "@types/node": "^20.2.5",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   },
   "dependencies": {
-    "inquirer": "^9.2.7",
+    "@types/inquirer": "^8.2.6",
+    "inquirer": "^8.2.5",
     "mysql2": "^3.3.1"
   }
 }
