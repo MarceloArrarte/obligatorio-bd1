@@ -56,7 +56,17 @@ export const dataFileToRepo: DataFileMapping[] = [
     repo: RacesRepository,
     transforms: {
       date: parseStringAsDate,
-      time: parseStringAsTime
+      time: parseStringAsTime,
+      fp1_date: parseStringAsDate,
+      fp1_time: parseStringAsTime,
+      fp2_date: parseStringAsDate,
+      fp2_time: parseStringAsTime,
+      fp3_date: parseStringAsDate,
+      fp3_time: parseStringAsTime,
+      quali_date: parseStringAsDate,
+      quali_time: parseStringAsTime,
+      sprint_date: parseStringAsDate,
+      sprint_time: parseStringAsTime
     }
   },
   {

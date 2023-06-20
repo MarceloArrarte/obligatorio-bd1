@@ -22,18 +22,19 @@ export class FileParser {
         let value = fields[j];
         
         if (value === '\\N') {
-          continue;
+          entity[header] = null;
         }
-
-        if (value.startsWith('"') && value.endsWith('"')) {
-          value = value.slice(1, -1);
+        else {
+          if (value.startsWith('"') && value.endsWith('"')) {
+            value = value.slice(1, -1);
+          }
+  
+          if (transforms[header]) {
+            value = transforms[header](value);
+          }
+  
+          entity[header] = value;
         }
-
-        if (transforms[header]) {
-          value = transforms[header](value);
-        }
-
-        entity[header] = value;
       }
   
       entities.push(entity as T);
