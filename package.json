@@ -16,6 +16,8 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
+    "@types/inquirer": "^8.2.6",
+    "inquirer": "^8.2.5",
     "mysql2": "^3.3.1"
   }
 }
