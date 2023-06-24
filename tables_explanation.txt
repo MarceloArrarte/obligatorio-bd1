@@ -1,0 +1,27 @@
+circuits: los circuitos donde se corren las carreras
+
+constructor_results: los puntos obtenidos por un constructor en una carrera, sumando ambos corredores del equipo. El status D está en todos los registros de McLaren del campeonato de 2007 porque fue descalificado de ese campeonato por un acto de espionaje (https://en.wikipedia.org/wiki/2007_Formula_One_World_Championship, "A major talking point of the season had been an espionage controversy involving Ferrari and McLaren, which led to McLaren being excluded from the Constructors' Championship. As a result, Ferrari clinched the championship at the Belgian Grand Prix.")
+
+constructor_standings: los puntos y victorias acumulados en el campeonato, sumando ambos corredores del equipo y la posición ocupada en la tabla de posiciones del campeonato de constructores luego de la carrera. Incluye los puntos del GP, del sprint (si hubo) y el punto extra por la vuelta más rápida.
+
+constructors: los constructores de autos
+
+driver_standings: puntos y victorias acumulados en el campeonato, y la posición ocupada en la tabla de posiciones del campeonato de corredores luego de la carrera. Incluye los puntos del GP, del sprint (si hubo) y el punto extra por la vuelta más rápida.
+
+drivers: los corredores
+
+lap_times: el tiempo de cada vuelta de cada corredor en la carrera, incluyendo la posición en la que estaba al completar la vuelta (ORDER BY lap ASC, position ASC => orden en que los corredores terminan una vuelta dada de la carrera)
+
+pit_stops: pit stops de cada corredor en las carreras, indicando nro de parada, vuelta en que sucede, hora y duración
+
+qualifying: la posición en la grilla de salida de la carrera del gran premio obtenida por cada corredor en la clasificación. Incluye los mejores tiempos de vuelta en todas las partes en las que participa cada corredor
+
+races: carreras (Grandes Premios) del campeonato, indicando año, orden de la carrera en el campeonato, fecha y hora. Para las más recientes, se registra también fecha y hora de las tres rondas de First Practice, de la ronda de clasificación y del sprint
+
+results: resultado de un corredor en una carrera de Gran Premio. Indica el constructor para el que corrió, número de auto, posición inicial en la grilla de salida, posición de quienes finalizan la carrera (o R para "Retirado" o "D" para "Descalificado"), orden final de todos en la tabla de resultados de la carrera, puntos obtenidos por el corredor por la posición alcanzada en esa carrera (incluyendo punto extra por vuelta más rápida), vueltas completadas. Para el ganador de la carrera, el tiempo total, y para los que hayan terminado la carrera menos de una vuelta detrás, la diferencia de segundos respecto al primero. También aparece la vuelta más rápida y el tiempo y velocidad promedio en esa vuelta, rank indica el orden según esa vuelta más rápida de cada corredor.
+
+seasons: las temporadas a la que puede pertenecer una carrera (temporadas/campeonatos anuales)
+
+sprint_results: resultado del sprint previo a una carrera de Gran Premio (es una carrera corta extra, no la reemplaza). En esencia, posee los mismos datos que results.
+
+status: estado del corredor al finalizar de la carrera, o al retirarse prematuramente de la misma

@@ -21,6 +21,7 @@ const enterToContinue = async () => {
   await inquirer.prompt([
     {
       type: 'confirm',
+      name: 'confirm',
       message: 'Presione enter para continuar...'
     }
   ]);
