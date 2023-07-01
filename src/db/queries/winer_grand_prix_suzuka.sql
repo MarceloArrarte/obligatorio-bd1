@@ -13,6 +13,6 @@ INNER JOIN circuits c
 ON
 	ra.circuitId = c.circuitId
 WHERE
-	c.name = "Suzuka Circuit"
+	c.circuitId = 22
 	AND ra.`year` = 1997
 	AND re.`position` = 1

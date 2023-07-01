@@ -44,32 +44,38 @@ const promptCheckStoredData = async () => {
 
 
 const promptMainMenu = async () => {
-  console.log('Menú principal');
-  writeSeparator();
-  const opcion = await inquirer.prompt([
-    {
-      type: 'list',
-      name: 'selectedOption',
-      message: 'Seleccione una opción:',
-      choices: [
-        {
-          name: '1. Realizar consulta.',
-          value: 1
-        },
-        {
-          name: '2. Salir.',
-          value: 2
-        }
-      ]
-    }
-  ]);
+  let answers;
+  do {
+    console.log();
+    console.log('Menú principal');
+    writeSeparator();
 
-  switch (opcion.selectedOption) {
-    case 1:
-      await promptQueryMenu();
-      break;
-    case 2:
-      console.log('Saliendo del sistema...');
-      return;
+    answers = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'selectedOption',
+        message: 'Seleccione una opción:',
+        choices: [
+          {
+            name: '1. Realizar consulta.',
+            value: 1
+          },
+          {
+            name: '2. Salir.',
+            value: 2
+          }
+        ]
+      }
+    ]);
+  
+    switch (answers.selectedOption) {
+      case 1:
+        await promptQueryMenu();
+        break;
+      case 2:
+        console.log('Saliendo del sistema...');
+        return;
+    }
   }
+  while (answers.selectedOption !== 2)
 };

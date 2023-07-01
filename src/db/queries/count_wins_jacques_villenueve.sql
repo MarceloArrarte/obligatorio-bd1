@@ -7,6 +7,5 @@ INNER JOIN drivers d
 ON
 	re.driverId = d.driverId
 WHERE
-	d.forename = 'Jacques'
-	AND d.surname = 'Villeneuve'
+	d.driverId = 35
 	AND re.position = 1;

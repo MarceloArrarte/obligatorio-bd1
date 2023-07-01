@@ -5,6 +5,10 @@ export default function BaseRepository<T extends {[property: string]: any}>(tabl
   class BaseRepository {
     private static MAX_BATCH_QUERY_PARAMETERS = 50000;
 
+    protected static async runQuery<T>(query: string, params: any[] = []): Promise<T[]> {
+      return DB.runQuery<T>(query, params);
+    }
+
     static async getAll(): Promise<T[]> {
       return await DB.runQuery<T>(`SELECT * FROM ${table}`);
     }
