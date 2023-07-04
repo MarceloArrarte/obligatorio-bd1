@@ -13,11 +13,13 @@ export default class DriverRepository extends BaseRepository<Driver>('drivers') 
     );
   }
 
-  private static getDriverWithMostGrandPrixQuery = fs
-    .readFileSync('./src/db/queries/most_drivers_grand_prix_wins.sql').toString();
+  private static getDriverWithMostWinsPerCircuitQuery = fs
+    .readFileSync('./src/db/queries/most_grand_prix_wins_per_circuit.sql').toString();
 
   static getDriverWithMostGrandPrix = async () => {
-    return this.runQuery<{name: string, grand_prix_wins: number}>(this.getDriverWithMostGrandPrixQuery);
+    return this.runQuery<{
+      Circuito: string, Corredor: string, "Grandes Premios ganados": number
+    }>(this.getDriverWithMostWinsPerCircuitQuery);
   }
 
   private static getSuzuka1997WinnerQuery = fs

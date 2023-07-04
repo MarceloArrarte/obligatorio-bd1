@@ -17,7 +17,7 @@ const showLogs = () => {
   console.log = logger;
 }
 
-const enterToContinue = async () => {
+const enterToContinue: () => Promise<void> = async () => {
   await inquirer.prompt([
     {
       type: 'confirm',

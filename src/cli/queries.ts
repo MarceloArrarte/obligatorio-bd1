@@ -36,10 +36,16 @@ export const promptQueryMenu = async () => {
           }
         },
         {
-          name: '3. Piloto que ha ganado más veces un Gran Premio.',
+          name: '3. Piloto que ha ganado más veces el Gran Premio en cada circuito.',
           value: async () => {
             const result = await DriverRepository.getDriverWithMostGrandPrix();
-            console.log(`El piloto que ha ganado más veces un Gran Premio es ${result[0].name} con ${result[0].grand_prix_wins} Grandes Premios ganados.`);
+            console.log(
+              `Los pilotos que han ganado más veces el Gran Premio de cada circuito son:\n\n`
+              + result.map((row) => {
+                const plural = row["Grandes Premios ganados"] > 1;
+                return `* ${row.Circuito}: ${row.Corredor} (${row["Grandes Premios ganados"]} ${plural ? 'victorias' : 'victoria'})`;
+              }).join('\n')
+            );
           }
         },
         {
@@ -47,7 +53,7 @@ export const promptQueryMenu = async () => {
           value: async () => {
             const result = await RacesRepository.getGrandPrixBetween1996_1999();
             console.log(
-              `Los Grandes Premios de los campeonatos de 1996 a 1999 son:\n`
+              `Los Grandes Premios de los campeonatos de 1996 a 1999 son:\n\n`
               + result.map((row) => `* ${row.name} (${row.year})`).join('\n')
               + `\n\nTotal: ${result.length} Grandes Premios.`
             );
